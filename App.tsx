@@ -9,17 +9,43 @@ import React, {useState} from 'react';
 import {View, StyleSheet, ImageBackground, SafeAreaView} from 'react-native';
 import {StartSplashScreen} from './src/screens/StartSplashScreen';
 import {GameScreen} from './src/screens/GameScreen';
+import {WinnerScreen} from './src/screens/WinnerScreen';
 
 function App(): React.JSX.Element {
   const [pickedNumber, setPickedNumber] = useState<string>('');
+  const [gameOver, setGameOver] = useState<boolean>(false);
+  const [totalGuesses, setTotalGuesses] = useState<number>(0);
 
   const confirmPickedNumber = (n: string) => {
     setPickedNumber(n);
   };
+
+  const gameOverFn = (totalCount: number) => {
+    setGameOver(true);
+    setTotalGuesses(totalCount);
+  };
+
+  const startGameFn = () => {
+    setGameOver(false);
+    setPickedNumber('');
+  };
+
   let screen = <StartSplashScreen onPress={confirmPickedNumber} />;
-  if (pickedNumber) {
-    screen = <GameScreen pickedNumber={pickedNumber} />;
+
+  if (pickedNumber && !gameOver) {
+    screen = <GameScreen pickedNumber={pickedNumber} gameOverFn={gameOverFn} />;
   }
+
+  if (gameOver) {
+    screen = (
+      <WinnerScreen
+        startGameFn={startGameFn}
+        pickedNumber={pickedNumber}
+        totalGuesses={totalGuesses}
+      />
+    );
+  }
+
   return (
     <View style={styles.container}>
       {/** <View style={styles.guessNumberWrapper}>

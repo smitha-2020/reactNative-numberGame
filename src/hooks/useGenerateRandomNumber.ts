@@ -5,18 +5,16 @@ export const useGenerateRandomNumber = (
   max: number,
   exclude: number,
 ) => {
-  const [guessedNumber, setGuessedNumber] = useState<number>(exclude);
+  const [guessedNumber, setGuessedNumber] = useState<number>(0);
   const startGuess = useCallback(async () => {
     const rndNum = Math.floor(Math.random() * (max - min)) + min;
 
-    console.log(min, max, exclude);
-
-    const numb =
+    setGuessedNumber(
       rndNum === exclude
         ? Math.floor(Math.random() * (max - min)) + min
-        : rndNum;
-
-    setGuessedNumber(numb);
+        : rndNum,
+    );
   }, [min, max, exclude]);
+
   return {guessedNumber, startGuess};
 };
