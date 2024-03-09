@@ -1,9 +1,14 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleProp, StyleSheet, Text, View, ViewStyle} from 'react-native';
 
-export const GuessScreenTitle = ({children}: any) => {
+type GuessScreenTitleProps = {
+  children: React.ReactNode;
+  style?: StyleProp<ViewStyle>;
+};
+
+export const GuessScreenTitle = ({children, style}: GuessScreenTitleProps) => {
   return (
-    <View style={styles.gameScreenWrapper}>
+    <View style={[styles.gameScreenWrapper, style]}>
       <View style={styles.gameScreenTitle}>
         <Text style={styles.gameScreenText}>{children}</Text>
       </View>

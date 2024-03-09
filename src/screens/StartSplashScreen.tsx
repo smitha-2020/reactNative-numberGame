@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {Alert, StyleSheet, TextInput, View} from 'react-native';
 import {GuessNumberButton} from '../components/GuessNumberButton';
 import {GuessScreenTitle} from '../components/GuessScreenTitle';
+import {MainBox} from '../ui/MainBox';
 
 type StartSplashScreenProps = {
   onPress: (n: string) => void;
@@ -36,7 +37,7 @@ export const StartSplashScreen = ({onPress}: StartSplashScreenProps) => {
   return (
     <View style={styles.flexOne}>
       <GuessScreenTitle>Guess The Number!!</GuessScreenTitle>
-      <View style={styles.guessNumberFormWrapper}>
+      <MainBox>
         <View style={{flexDirection: 'row', justifyContent: 'center'}}>
           <TextInput
             style={styles.guessNumberTextInput}
@@ -61,7 +62,7 @@ export const StartSplashScreen = ({onPress}: StartSplashScreenProps) => {
             </GuessNumberButton>
           </View>
         </View>
-      </View>
+      </MainBox>
     </View>
   );
 };

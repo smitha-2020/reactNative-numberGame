@@ -1,7 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {FlatList, Pressable, StyleSheet, Text, View} from 'react-native';
+import {FlatList, StyleSheet, Text, View} from 'react-native';
 import {GuessScreenTitle} from '../components/GuessScreenTitle';
 import {useGenerateRandomNumber} from '../hooks/useGenerateRandomNumber';
+import {MainBox} from '../ui/MainBox';
+import {GuessNumberButton} from '../components/GuessNumberButton';
 
 type GamesScreenProps = {
   pickedNumber: string;
@@ -68,26 +70,40 @@ export const GameScreen = ({pickedNumber, gameOverFn}: GamesScreenProps) => {
   return (
     <View style={styles.flexOne}>
       <GuessScreenTitle>Opponent's Guess</GuessScreenTitle>
-      <View>
-        <Text>{guessedNumber}</Text>
-      </View>
-      <View>
-        <Pressable onPress={() => checkMinMax('higher')}>
-          <View>
-            <Text> + </Text>
-          </View>
-        </Pressable>
+      <MainBox>
+        <View>
+          <Text>{guessedNumber}</Text>
+        </View>
+        <View style={{flexDirection: 'row'}}>
+          <GuessNumberButton onPress={() => checkMinMax('higher')}>
+            +
+          </GuessNumberButton>
 
-        <Pressable onPress={() => checkMinMax('lower')}>
-          <View>
-            <Text> - </Text>
-          </View>
-        </Pressable>
-      </View>
+          <GuessNumberButton onPress={() => checkMinMax('lower')}>
+            -
+          </GuessNumberButton>
+        </View>
+      </MainBox>
+
       <View style={styles.flexOne}>
         <FlatList
+          ListHeaderComponent={
+            <GuessScreenTitle>Previous Guesses</GuessScreenTitle>
+          }
           data={prevGuesses}
-          renderItem={({index, item}) => <Text key={index}>{item}</Text>}
+          renderItem={({index, item}) => (
+            <GuessScreenTitle
+              style={{
+                marginHorizontal: 30,
+                marginVertical: 1,
+                backgroundColor: 'coral',
+              }}
+              key={index}>
+              <Text>
+                Round #<Text>{index + 1}</Text> Number {item} was Guessed.
+              </Text>
+            </GuessScreenTitle>
+          )}
           ListEmptyComponent={<Text>No Items To Display!!</Text>}
         />
       </View>
