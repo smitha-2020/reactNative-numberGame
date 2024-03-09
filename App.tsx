@@ -6,7 +6,7 @@
  */
 
 import React, {useState} from 'react';
-import {View, StyleSheet, ImageBackground} from 'react-native';
+import {View, StyleSheet, ImageBackground, SafeAreaView} from 'react-native';
 import {StartSplashScreen} from './src/screens/StartSplashScreen';
 import {GameScreen} from './src/screens/GameScreen';
 
@@ -18,7 +18,7 @@ function App(): React.JSX.Element {
   };
   let screen = <StartSplashScreen onPress={confirmPickedNumber} />;
   if (pickedNumber) {
-    screen = <GameScreen />;
+    screen = <GameScreen pickedNumber={pickedNumber} />;
   }
   return (
     <View style={styles.container}>
@@ -31,7 +31,7 @@ function App(): React.JSX.Element {
         source={require('./src/assets/images/background.png')}
         style={styles.flexOne}
         imageStyle={{opacity: 0.25}}>
-        {screen}
+        <SafeAreaView style={styles.flexOne}>{screen}</SafeAreaView>
       </ImageBackground>
     </View>
   );

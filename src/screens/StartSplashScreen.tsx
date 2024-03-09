@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {Alert, StyleSheet, TextInput, View} from 'react-native';
 import {GuessNumberButton} from '../components/GuessNumberButton';
+import {GuessScreenTitle} from '../components/GuessScreenTitle';
 
 type StartSplashScreenProps = {
   onPress: (n: string) => void;
@@ -28,34 +29,37 @@ export const StartSplashScreen = ({onPress}: StartSplashScreenProps) => {
     }
     onPress(enteredNumber);
   };
+
   const clearTextInput = () => {
     setEnteredNumber('');
   };
   return (
-    <View style={styles.guessNumberFormWrapper}>
-      {/** <View style={styles.guessNumberWrapper}>
-        <View style={styles.guessNumberTextWrapper}>
-          <Text style={styles.guessNumberText}>Guess The Number!!</Text>
+    <View style={styles.flexOne}>
+      <GuessScreenTitle>Guess The Number!!</GuessScreenTitle>
+      <View style={styles.guessNumberFormWrapper}>
+        <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+          <TextInput
+            style={styles.guessNumberTextInput}
+            maxLength={2}
+            keyboardType="numeric"
+            autoCapitalize="none"
+            autoCorrect={false}
+            onChangeText={getNumber}
+            value={enteredNumber}
+          />
         </View>
-      </View> */}
-      <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-        <TextInput
-          style={styles.guessNumberTextInput}
-          maxLength={2}
-          keyboardType="numeric"
-          autoCapitalize="none"
-          autoCorrect={false}
-          onChangeText={getNumber}
-          value={enteredNumber}
-        />
-      </View>
 
-      <View style={styles.guessNumberFormInputWrapper}>
-        <View style={styles.flexOne}>
-          <GuessNumberButton onPress={clearTextInput}>Reset</GuessNumberButton>
-        </View>
-        <View style={styles.flexOne}>
-          <GuessNumberButton onPress={confirmNumber}>Confirm</GuessNumberButton>
+        <View style={styles.guessNumberFormInputWrapper}>
+          <View style={styles.flexOne}>
+            <GuessNumberButton onPress={clearTextInput}>
+              Reset
+            </GuessNumberButton>
+          </View>
+          <View style={styles.flexOne}>
+            <GuessNumberButton onPress={confirmNumber}>
+              Confirm
+            </GuessNumberButton>
+          </View>
         </View>
       </View>
     </View>
@@ -71,7 +75,6 @@ const styles = StyleSheet.create({
     width: '15%',
   },
   guessNumberFormWrapper: {
-    marginTop: 100,
     padding: 20,
     borderRadius: 10,
     marginHorizontal: 50,
