@@ -100,7 +100,8 @@ export const GameScreen = ({pickedNumber, gameOverFn}: GamesScreenProps) => {
               }}
               key={index}>
               <Text>
-                Round #<Text>{index + 1}</Text> Number {item} was Guessed.
+                Round #<Text>{prevGuesses.length - index}</Text> Number {item}
+                was Guessed.
               </Text>
             </GuessScreenTitle>
           )}
